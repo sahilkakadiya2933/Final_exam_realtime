@@ -1,0 +1,34 @@
+0-225 range priority
+programmer between 1 to 63
+idel thread  - 0 priority
+each thread - context
+switch context - kernel decide that thread to given time to see
+first thread - preempted
+fifo - first in first out
+RR - Round Robin - default
+
+55 - A(r)R, B(r)
+54 -  C(r)
+53
+
+FIFO:
+55 - A(f)R, B(f)
+54 -  C(f)
+53
+
+Sporadic:
+
+-run at high priority
+55 - A(S)R, B(r)
+54 -  C(r)
+53
+
+55 - B(r)R
+54 -  C(r)
+53- A(s)
+
+sleep()
+sema_wait()
+mutex_lock - this three types of it blocks
+
+pthread_setschedprio(pthred_t tid, int prio)
