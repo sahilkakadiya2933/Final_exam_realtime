@@ -1,0 +1,146 @@
+#!/bin/ksh
+
+echo "********************************************"
+
+# Step a: Run metronome with no arguments
+echo "Test: ./metronome (should display usage message)"
+./metronome
+echo ""
+
+# Step b: Run metronome with specific arguments
+echo "Test: ./metronome 120 2 4"
+./metronome 120 2 4 &
+METRONOME_PID=$!
+sleep 3
+
+# Step c: Display metronome device status
+echo "Test: cat /dev/local/metronome"
+cat /dev/local/metronome
+echo ""
+
+# Step d: Display metronome help
+echo "Test: cat /dev/local/metronome-help"
+cat /dev/local/metronome-help
+echo ""
+
+# Step e: Change metronome settings
+echo "Test: echo set 100 2 4 > /dev/local/metronome"
+echo "set 100 2 4" > /dev/local/metronome
+sleep 3
+cat /dev/local/metronome
+echo ""
+
+# Step f: Display metronome device status again
+echo "Test: cat /dev/local/metronome"
+cat /dev/local/metronome
+echo ""
+
+# Step g: Change metronome settings again
+echo "Test: echo set 200 5 4 > /dev/local/metronome"
+echo "set 200 5 4" > /dev/local/metronome
+sleep 3
+cat /dev/local/metronome
+echo ""
+
+# Step h: Display metronome device status once more
+echo "Test: cat /dev/local/metronome"
+cat /dev/local/metronome
+echo ""
+
+# Step i: Stop the metronome
+echo "Test: echo stop > /dev/local/metronome"
+echo "stop" > /dev/local/metronome
+sleep 1
+
+# Step j: Start the metronome
+echo "Test: echo start > /dev/local/metronome"
+echo "start" > /dev/local/metronome
+sleep 3
+cat /dev/local/metronome
+echo ""
+
+# Step k: Display metronome device status yet again
+echo "Test: cat /dev/local/metronome"
+cat /dev/local/metronome
+echo ""
+
+# Step l: Stop the metronome again
+echo "Test: echo stop > /dev/local/metronome"
+echo "stop" > /dev/local/metronome
+sleep 1
+
+# Step m: Stop the metronome one more time
+echo "Test: echo stop > /dev/local/metronome"
+echo "stop" > /dev/local/metronome
+sleep 1
+
+# Step n: Start the metronome again
+echo "Test: echo start > /dev/local/metronome"
+echo "start" > /dev/local/metronome
+sleep 3
+cat /dev/local/metronome
+echo ""
+
+# Step o: Start the metronome once more
+echo "Test: echo start > /dev/local/metronome"
+echo "start" > /dev/local/metronome
+sleep 3
+cat /dev/local/metronome
+echo ""
+
+# Step p: Display metronome device status again
+echo "Test: cat /dev/local/metronome"
+cat /dev/local/metronome
+echo ""
+
+# Step q: Pause the metronome for 3 seconds
+echo "Test: echo pause 3 > /dev/local/metronome"
+echo "pause 3" > /dev/local/metronome
+sleep 4
+
+# Step r: Pause the metronome for 10 seconds
+echo "Test: echo pause 10 > /dev/local/metronome"
+echo "pause 10" > /dev/local/metronome
+echo ""
+
+# Step s: Send an invalid command to the metronome
+echo "Test: echo bogus > /dev/local/metronome"
+echo "bogus" > /dev/local/metronome
+echo ""
+
+# Step t: Change metronome settings again
+echo "Test: echo set 120 2 4 > /dev/local/metronome"
+echo "set 120 2 4" > /dev/local/metronome
+sleep 3
+cat /dev/local/metronome
+echo ""
+
+# Step u: Display metronome device status again
+echo "Test: cat /dev/local/metronome"
+cat /dev/local/metronome
+echo ""
+
+# Step v: Display metronome help again
+echo "Test: cat /dev/local/metronome-help"
+cat /dev/local/metronome-help
+echo ""
+
+# Step w: Try to write to the help file (should fail)
+echo "Test: echo Writes-Not-Allowed > /dev/local/metronome-help"
+echo "Writes-Not-Allowed" > /dev/local/metronome-help
+echo ""
+
+# Step x: Quit the metronome and check if it has terminated
+echo "Test: echo quit > /dev/local/metronome"
+echo "quit" > /dev/local/metronome
+sleep 1
+
+# Ensure the metronome process has terminated
+if ps -p $METRONOME_PID > /dev/null; then
+   echo "Metronome is still running."
+else
+   echo "Metronome has terminated."
+fi
+
+echo "********************************************"
+echo "Acceptance tests completed."
